@@ -16,17 +16,18 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             List(users) { user in
-                NavigationLink(value: user){
-                    Text(user.name)
+                    NavigationLink(value: user) {
+                        Text(user.name)
+                    }
                 }
-            }
             .navigationDestination(for: User.self) { user in
-                EditUserView(user: user)
-            }
+                   EditUserView(user: user)
+               }
             .navigationTitle("Users")
             .toolbar {
                 Button("Add User", systemImage: "plus"){
                     let user = User(name: "", city: "", joinDate: .now)
+                    modelContext.insert(user)
                     path = [user]
                 }
             }
